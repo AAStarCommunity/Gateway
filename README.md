@@ -17,3 +17,5 @@ go run main.go
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8000
 ```
+
+Access localhost:8000/swagger/index.html to see the API documentation and debug.
