@@ -1,11 +1,9 @@
 package response
 
 import (
-	"fmt"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
-
-	"github.com/gin-gonic/gin"
 )
 
 func GetResponse() *Response {
@@ -20,14 +18,12 @@ func GetResponse() *Response {
 	}
 }
 func BadRequest(ctx *gin.Context, data ...any) {
-	fmt.Println("BadRequest here")
 	GetResponse().withDataAndHttpCode(http.StatusBadRequest, ctx, data)
 }
 
 // Success 业务成功响应
 func Success(ctx *gin.Context, data ...any) {
 	if data != nil {
-		fmt.Println("Success here")
 		GetResponse().WithDataSuccess(ctx, data[0])
 		return
 	}
@@ -61,6 +57,53 @@ type Response struct {
 	Result   *Result
 }
 
+// Fail 错误返回
+func (r *Response) Fail(ctx *gin.Context) *Response {
+	r.SetCode(http.StatusInternalServerError)
+	r.json(ctx)
+	return r
+}
+
+// FailCode 自定义错误码返回
+func (r *Response) FailCode(ctx *gin.Context, code int, msg ...string) *Response {
+	r.SetCode(code)
+	if msg != nil {
+		r.WithMessage(msg[0])
+	}
+	r.json(ctx)
+	return r
+}
+
+// Success 正确返回
+func (r *Response) Success(ctx *gin.Context) *Response {
+	r.SetCode(http.StatusOK)
+	r.json(ctx)
+	return r
+}
+
+// WithDataSuccess 成功后需要返回值
+func (r *Response) WithDataSuccess(ctx *gin.Context, data interface{}) *Response {
+	r.SetCode(http.StatusOK)
+	r.WithData(data)
+	r.json(ctx)
+	return r
+}
+
+func (r *Response) withDataAndHttpCode(code int, ctx *gin.Context, data interface{}) *Response {
+	r.SetHttpCode(code)
+	if data != nil {
+		r.WithData(data)
+	}
+	r.json(ctx)
+	return r
+}
+
+// SetCode 设置返回code码
+func (r *Response) SetCode(code int) *Response {
+	r.Result.Code = code
+	return r
+}
+
 // SetHttpCode 设置http状态码
 func (r *Response) SetHttpCode(code int) *Response {
 	r.httpCode = code
@@ -76,18 +119,9 @@ func (r *Response) WithData(data interface{}) *Response {
 	switch data.(type) {
 	case string, int, bool:
 		r.Result.Data = &defaultRes{Result: data}
-		fmt.Println("data is string, int, bool")
 	default:
 		r.Result.Data = data
 	}
-	return r
-}
-
-// Fail 错误返回
-func (r *Response) Fail(ctx *gin.Context) *Response {
-	fmt.Println("Fail here")
-	r.SetCode(http.StatusInternalServerError)
-	r.json(ctx)
 	return r
 }
 
