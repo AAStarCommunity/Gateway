@@ -4,10 +4,11 @@ import (
 	"AirAccountGateway/internal/models/webapi/response"
 	"encoding/json"
 	"fmt"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
+
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/gin-gonic/gin"
 )
 
 func walletApiInvoker[T any](ctx *gin.Context, walletApi func() (*http.Response, error), success func(v *T)) {
@@ -36,6 +37,7 @@ func walletApiInvoker[T any](ctx *gin.Context, walletApi func() (*http.Response,
 		} else {
 			msg := fmt.Sprintf("downstream code: %d", resp.StatusCode)
 			response.Fail(ctx, http.StatusUnprocessableEntity, &msg)
+			fmt.Println(msg)
 			return
 		}
 	}
