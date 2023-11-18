@@ -1,8 +1,8 @@
 package main
 
 import (
-	"Gateway/conf"
-	"Gateway/internal/controllers"
+	"AirAccountGateway/conf"
+	"AirAccountGateway/internal/controllers"
 	"fmt"
 )
 
