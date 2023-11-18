@@ -1,6 +1,7 @@
 package response
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,12 +19,14 @@ func GetResponse() *Response {
 	}
 }
 func BadRequest(ctx *gin.Context, data ...any) {
+	fmt.Println("BadRequest here")
 	GetResponse().withDataAndHttpCode(http.StatusBadRequest, ctx, data)
 }
 
 // Success 业务成功响应
 func Success(ctx *gin.Context, data ...any) {
 	if data != nil {
+		fmt.Println("Success here")
 		GetResponse().WithDataSuccess(ctx, data[0])
 		return
 	}
