@@ -14,6 +14,7 @@ import (
 func walletApiInvoker[T any](ctx *gin.Context, walletApi func() (*http.Response, error), success func(v *T)) {
 	//v := new(T)
 	//success(v)
+	// @todo: 调用钱包API, change to your own wallet api
 	if resp, err := walletApi(); err != nil {
 		msg := err.Error()
 		response.Fail(ctx, http.StatusFailedDependency, &msg)
@@ -50,6 +51,7 @@ const (
 // idToHash id转换为hash
 func idToHash(rawId string, src int) string {
 	data := []byte(rawId)
+	// @todo: 根据src选择不同的hash算法
 	hash := crypto.Keccak256Hash(data)
 	return hash.Hex()
 }

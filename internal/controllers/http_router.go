@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"Gateway/docs"
+	"AirAccountGateway/docs"
 	"AirAccountGateway/internal/controllers/actions"
 	"fmt"
 
-	"Gateway/internal/models/webapi/response"
+	"AirAccountGateway/internal/models/webapi/response"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
