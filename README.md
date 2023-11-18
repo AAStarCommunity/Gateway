@@ -1,9 +1,9 @@
 # Gateway
-The Gateway of all instructions, transfer into on-chain commands to execute.
+The Gateway of all instructions, transfers into on-chain commands to execute.
 
 ```
 go run main.go
-// after download the package, it should show this:
+// after downloading the package, it should show this:
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
