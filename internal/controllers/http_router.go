@@ -1,13 +1,15 @@
 package controllers
 
 import (
-	"AirAccountGateway/docs"
+	// "AirAccountGateway/docs"
 	"AirAccountGateway/internal/controllers/actions"
-	"AirAccountGateway/internal/models/webapi/response"
+	// "AirAccountGateway/internal/models/webapi/response"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"net/http"
+	"github.com/swaggo/swag/example/basic/docs"
 )
 
 // SetRouters 设置API路由
@@ -41,8 +43,8 @@ func buildRouters(router *gin.Engine) {
 	r := router.Group("/api/instructions")
 	r.GET("/balance", actions.Balance)
 	r.POST("/bind", actions.Bind)
-	r.GET("/transfer/check", actions.TransferCheck)
-	r.POST("/transfer", actions.Transfer)
+	// r.GET("/transfer/check", actions.TransferCheck)
+	// r.POST("/transfer", actions.Transfer)
 }
 
 // buildSwagger 创建swagger文档
