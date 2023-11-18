@@ -1,9 +1,11 @@
 package controllers
 
 import (
-	// "AirAccountGateway/docs"
+	"Gateway/docs"
 	"AirAccountGateway/internal/controllers/actions"
-	// "AirAccountGateway/internal/models/webapi/response"
+	"fmt"
+
+	"Gateway/internal/models/webapi/response"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -33,6 +35,7 @@ func SetRouters() (routers *gin.Engine) {
 
 	routers.NoRoute(func(ctx *gin.Context) {
 		response.GetResponse().SetHttpCode(http.StatusNotFound).FailCode(ctx, http.StatusNotFound)
+		fmt.Println("NoRoute here")
 	})
 
 	return
