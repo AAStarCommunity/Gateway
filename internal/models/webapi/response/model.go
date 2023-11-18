@@ -61,8 +61,31 @@ type Response struct {
 	Result   *Result
 }
 
+// SetHttpCode 设置http状态码
+func (r *Response) SetHttpCode(code int) *Response {
+	r.httpCode = code
+	return r
+}
+
+type defaultRes struct {
+	Result any `json:"result"`
+}
+
+// WithData 设置返回data数据
+func (r *Response) WithData(data interface{}) *Response {
+	switch data.(type) {
+	case string, int, bool:
+		r.Result.Data = &defaultRes{Result: data}
+		fmt.Println("data is string, int, bool")
+	default:
+		r.Result.Data = data
+	}
+	return r
+}
+
 // Fail 错误返回
 func (r *Response) Fail(ctx *gin.Context) *Response {
+	fmt.Println("Fail here")
 	r.SetCode(http.StatusInternalServerError)
 	r.json(ctx)
 	return r
