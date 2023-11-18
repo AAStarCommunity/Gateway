@@ -3,8 +3,9 @@ package actions
 import (
 	"AirAccountGateway/conf"
 	"AirAccountGateway/internal/models/webapi/response"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type BalanceResponse struct {
