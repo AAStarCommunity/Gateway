@@ -1,6 +1,8 @@
 package conf
 
 import (
+	"k8s.io/apimachinery/pkg/util/yaml"
+	"os"
 	"sync"
 )
 
@@ -28,4 +30,23 @@ func Get() *Conf {
 		}
 	})
 	return conf
+}
+
+// getConfiguration 读取配置
+// 优先从配置文件读取，如果数据库相关配置为空，则从环境变量读取
+func getConfiguration(filePath *string) *Conf {
+	if file, err := os.ReadFile(*filePath); err != nil {
+		return getConfFromEnv()
+	} else {
+		c := Conf{}
+		err := yaml.Unmarshal(file, &c)
+		if err != nil {
+			return getConfFromEnv()
+		}
+		return &c
+	}
+}
+
+func getConfFromEnv() *Conf {
+	return &Conf{Node: struct{ Host string }{Host: os.Getenv("wallet__host")}}
 }
