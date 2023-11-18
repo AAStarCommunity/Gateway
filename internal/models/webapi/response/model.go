@@ -3,6 +3,7 @@ package response
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -65,4 +66,16 @@ func (r *Response) Fail(ctx *gin.Context) *Response {
 	r.SetCode(http.StatusInternalServerError)
 	r.json(ctx)
 	return r
+}
+
+// WithMessage 设置返回自定义错误消息
+func (r *Response) WithMessage(message string) *Response {
+	r.Result.Message = message
+	return r
+}
+
+// json 返回 gin 框架的 HandlerFunc
+func (r *Response) json(ctx *gin.Context) {
+	r.Result.Cost = time.Since(ctx.GetTime("requestStartTime")).String()
+	ctx.AbortWithStatusJSON(r.httpCode, r.Result)
 }
