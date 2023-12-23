@@ -1,5 +1,12 @@
 # Gateway
+
+**⚠️ 注意：该仓库已停止维护，请前往新仓库进行后续开发。**
+
+**🆕 新仓库地址：[AirAccountGateway](https://github.com/AAStarCommunity/AirAccountGateway)**
+
 The Gateway of all instructions, transfers into on-chain commands to execute.
+
+
 
 ```
 go run main.go
